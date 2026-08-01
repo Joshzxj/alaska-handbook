@@ -1,0 +1,227 @@
+:root{
+  --ice:#E7EDEF; --paper:#FAFCFC; --ink:#13201E; --spruce:#22423B;
+  --glacier:#2F6E82; --tundra:#B8701C; --muted:#5E6E6C; --rule:#C9D5D7;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Menlo","Consolas",monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ice);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:840px;margin:0 auto;padding:0 22px 96px}
+
+/* ---------- 导航（打印时隐藏） ---------- */
+.nav{position:sticky;top:0;z-index:10;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.nav-in{max-width:840px;margin:0 auto;padding:10px 22px;display:flex;
+  flex-wrap:wrap;gap:4px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.nav a{color:var(--muted);text-decoration:none;text-transform:uppercase}
+.nav a:hover{color:var(--glacier)}
+.nav a.on{color:var(--tundra);font-weight:700}
+
+/* ---------- 页眉 ---------- */
+header{padding:56px 0 30px}
+.vol{font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--tundra);margin:0 0 14px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--glacier);margin:0 0 18px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,6vw,50px);
+  line-height:1.15;margin:0 0 16px}
+.sub{color:var(--muted);font-size:15px;margin:0;max-width:56ch}
+
+.flights{margin:26px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.flights div{background:var(--paper);padding:14px 16px}
+.flights .fl-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--glacier);display:block;margin-bottom:5px}
+.flights .fl-time{font-family:var(--mono);font-size:14.5px;letter-spacing:.02em}
+.flights .fl-note{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+/* ---------- 结构块（封面用） ---------- */
+.thesis{margin-top:46px;padding:28px 26px 26px;background:var(--spruce);color:#EAF1F0}
+.thesis .eyebrow{color:#8FB8AE;margin-bottom:12px}
+.thesis h2{font-family:var(--serif);font-size:23px;font-weight:600;margin:0 0 12px;color:#FFF}
+.thesis p{margin:0 0 24px;font-size:14.5px;line-height:1.85;color:#CBDBD7;max-width:58ch}
+.opt{margin-bottom:22px}
+.opt:last-child{margin-bottom:0}
+.opt-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:9px}
+.opt-name{font-family:var(--serif);font-size:16px;color:#FFF}
+.opt-buf{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#E0A860;margin-left:auto}
+.track{display:grid;grid-template-columns:repeat(10,1fr);gap:2px}
+.cell{height:26px;background:#3A5C54;position:relative;display:flex;
+  align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:9px;color:#7E9E96}
+.cell.buf{background:#4E7F73;color:#C6DED8}
+.cell.key{background:#E0A860;color:#22423B;font-weight:700}
+.cell.lock{background:#2C4A43;color:#6B8B83}
+.opt-note{font-size:12.5px;color:#9DBAB3;margin:8px 0 0;line-height:1.7}
+
+.mapbox{margin:46px 0 0;background:var(--paper);border:1px solid var(--rule);padding:22px 12px 14px}
+svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--muted);
+  margin-top:8px;padding:0 10px}
+.legend i{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:7px}
+.lg-pave i{border-top:3px solid var(--glacier)}
+.lg-grav i{border-top:3px dotted var(--tundra)}
+.lg-spur i{border-top:3px solid var(--spruce)}
+
+/* ---------- 章节 ---------- */
+section{padding-top:56px}
+h2{font-family:var(--serif);font-size:24px;font-weight:600;margin:0 0 6px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;padding:3px 9px;border:1px solid var(--rule);border-radius:2px;
+  color:var(--muted);background:var(--paper);margin-bottom:14px}
+h2 + .lede{margin:0 0 26px;color:var(--muted);font-size:14.5px;max-width:58ch}
+
+/* ---------- 逐日 ---------- */
+.day{padding:20px 0;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:96px 1fr;gap:22px}
+.day:first-of-type{border-top:1px solid var(--rule)}
+.d-date{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--tundra);
+  padding-top:5px;line-height:1.9}
+.d-date b{display:block;color:var(--ink);font-size:13px;font-weight:600;letter-spacing:.1em}
+.d-title{font-family:var(--serif);font-size:18.5px;font-weight:600;margin:0 0 4px}
+.d-meta{font-family:var(--mono);font-size:11.5px;color:var(--glacier);margin:0 0 9px;letter-spacing:.04em}
+.d-body{font-size:14.5px;margin:0}
+.d-body em{font-style:normal;color:var(--tundra);font-weight:600}
+.day.hi{background:var(--paper);margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}
+
+.sched{margin:12px 0 0;border-top:1px solid var(--rule)}
+.sched > div{display:grid;grid-template-columns:66px 1fr;gap:12px;padding:6px 0;
+  border-bottom:1px solid var(--rule);font-size:13.5px;line-height:1.6;align-items:baseline}
+.sched .t{font-family:var(--mono);font-size:11px;color:var(--glacier);letter-spacing:.03em}
+.sched .k{color:var(--tundra);font-weight:600}
+.sched small{color:var(--muted);font-size:12px}
+
+.bk{margin:12px 0 0;padding:2px 0 2px 13px;border-left:3px solid var(--tundra);
+  font-size:13px;line-height:1.75;color:var(--muted)}
+.bk b{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--tundra);
+  display:block;margin-bottom:2px;text-transform:uppercase;font-weight:600}
+
+/* ---------- 冷知识 ---------- */
+.fact{margin:14px 0 0;padding:13px 16px;background:var(--paper);
+  border:1px dashed var(--glacier);font-size:13px;line-height:1.8}
+.day.hi .fact{background:#F1F6F5}
+.fact .fx{font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--glacier);display:block;margin-bottom:5px;font-weight:600}
+.fact ul{margin:0;padding-left:18px}
+.fact li{margin-bottom:5px}
+.fact li:last-child{margin-bottom:0}
+
+/* ---------- 卡片 ---------- */
+.card{background:var(--paper);border:1px solid var(--rule);padding:22px 24px;margin-bottom:14px}
+.card h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 8px;color:var(--spruce)}
+.card p{margin:0;font-size:14.5px;line-height:1.8}
+.card p + p{margin-top:9px}
+.card .num{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  color:var(--tundra);display:block;margin-bottom:8px}
+.card ol{margin:9px 0 0;padding-left:20px;font-size:14.5px;line-height:1.8}
+.card ol li{margin-bottom:6px}
+.card ul{margin:9px 0 0;padding-left:20px;font-size:14.5px;line-height:1.8}
+.card ul li{margin-bottom:5px}
+.card .tel{font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  color:var(--glacier);margin-top:12px;display:block}
+
+/* ---------- 住宿卡 ---------- */
+.h-meta{font-family:var(--mono);font-size:12px;color:var(--glacier);
+  letter-spacing:.03em;margin:0 0 10px;line-height:1.95}
+.badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  padding:2px 8px;border-radius:2px;background:var(--spruce);color:#EAF1F0;
+  text-transform:uppercase;margin-left:8px;vertical-align:2px}
+
+/* ---------- 可打勾清单 ---------- */
+.todo{list-style:none;margin:10px 0 0;padding:0}
+.todo li{padding:7px 0 7px 26px;border-bottom:1px dashed var(--rule);
+  font-size:13.5px;line-height:1.7;position:relative}
+.todo li:last-child{border-bottom:none}
+.todo li::before{content:"";position:absolute;left:2px;top:12px;width:11px;height:11px;
+  border:1.5px solid var(--spruce);border-radius:2px}
+.todo li small{color:var(--muted)}
+.todo-h{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--tundra);
+  text-transform:uppercase;font-weight:600;margin:14px 0 0}
+
+/* ---------- 待办 / 住宿列表 ---------- */
+.check{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.check li{padding:14px 0;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;font-size:14.5px}
+.check .urgency{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  color:var(--tundra);white-space:nowrap}
+.check .urgency.soon{color:var(--glacier)}
+.check .urgency.done{color:var(--spruce)}
+.check li.done span:first-child{color:var(--muted)}
+.check li.done strong{text-decoration:line-through;text-decoration-color:var(--rule)}
+
+.nights{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.nights li{padding:12px 0;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:112px 1fr auto;gap:14px;align-items:baseline;font-size:14.5px}
+.nights .n-date{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--tundra)}
+.nights .n-ct{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
+.nights li.locked{background:var(--paper);margin-left:-12px;margin-right:-12px;
+  padding-left:12px;padding-right:12px}
+.nights li.locked .n-ct{color:var(--spruce)}
+
+/* ---------- 表格 ---------- */
+.bud{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+.bud td{padding:9px 0;border-bottom:1px solid var(--rule);vertical-align:baseline}
+.bud .bud-n{font-family:var(--mono);font-size:12.5px;text-align:right;
+  white-space:nowrap;padding-left:14px;letter-spacing:.02em}
+.bud .bud-s{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);
+  text-align:right;white-space:nowrap;padding-left:14px;width:1%}
+.bud .bud-cat td{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--glacier);padding:20px 0 6px;border-bottom:1px solid var(--spruce)}
+.bud .bud-cat:first-child td{padding-top:4px}
+.bud .bud-tot td{border-bottom:none;border-top:2px solid var(--spruce);
+  padding-top:13px;font-weight:600}
+.bud .bud-tot .bud-n{font-size:14.5px;color:var(--tundra);font-weight:700}
+
+/* ---------- 目录（封面用） ---------- */
+.toc{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.toc li{border-bottom:1px solid var(--rule)}
+.toc a{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:16px 0;
+  text-decoration:none;color:inherit;align-items:baseline}
+.toc a:hover .toc-t{color:var(--glacier)}
+.toc .toc-no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--tundra)}
+.toc .toc-t{font-family:var(--serif);font-size:17.5px;font-weight:600;display:block}
+.toc .toc-d{font-size:13px;color:var(--muted);display:block;margin-top:2px}
+
+/* ---------- 图片 ---------- */
+.fig{margin:18px 0 0;background:var(--paper);border:1px solid var(--rule);padding:10px}
+.fig img{display:block;width:100%;height:auto}
+.fig figcaption{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;padding:0 2px}
+.fig figcaption .cr{font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--muted);opacity:.75;display:block;margin-top:2px}
+.fig-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 0}
+.fig-row .fig{margin:0}
+@media (max-width:640px){.fig-row{grid-template-columns:1fr}}
+
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.06em;line-height:1.9}
+
+@media (max-width:640px){
+  header{padding-top:40px}
+  .flights{grid-template-columns:1fr}
+  .day{grid-template-columns:1fr;gap:6px}
+  .d-date{padding-top:0;line-height:1.6}
+  .d-date b{display:inline;margin-right:10px}
+  .check li{grid-template-columns:1fr;gap:2px}
+  .nights li{grid-template-columns:1fr;gap:2px}
+  .sched > div{grid-template-columns:58px 1fr;gap:9px}
+  .bud{font-size:13.5px}
+  .bud .bud-s{display:none}
+  .bud .bud-n{font-size:12px}
+  .cell{font-size:0}
+}
+
+/* ---------- 打印 ---------- */
+@page{margin:14mm}
+@media print{
+  body{background:#FFF;font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .nav{display:none}
+  .wrap{max-width:none;padding:0}
+  header{padding:10px 0 18px}
+  section{padding-top:28px}
+  .day,.card,.fact,.mapbox,.thesis{break-inside:avoid}
+  a{color:inherit;text-decoration:none}
+  .sub,.lede{max-width:none}
+}
