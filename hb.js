@@ -21,7 +21,8 @@
     ["budget.html", "6 · 预算"],
     ["knowledge.html", "7 · 自然读物"],
     ["culture.html", "8 · 人文读物"],
-    ["fieldguide.html", "9 · 野外图鉴"]
+    ["fieldguide.html", "9 · 野外图鉴"],
+    ["parks.html", "10 · 公园与城市"]
   ];
 
   function pageName() {

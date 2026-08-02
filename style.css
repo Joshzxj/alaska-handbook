@@ -356,6 +356,24 @@ html[data-theme="dark"] .fig figcaption .cr{color:#5E6E6C}
   margin:8px 0 0;word-break:break-all}
 @media print{.src{display:none}}
 
+/* ---------- 第十册 · 公园决策矩阵 ---------- */
+.mx-wrap{margin:18px 0 0;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:var(--paper);border:1px solid var(--rule)}
+.mx{width:100%;min-width:660px;border-collapse:collapse;font-size:13px;line-height:1.65}
+.mx th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--glacier);font-weight:600;text-align:left;padding:10px 12px;
+  border-bottom:1px solid var(--spruce);white-space:nowrap}
+.mx td{padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+.mx tr:last-child td{border-bottom:none}
+.mx .mx-p{font-weight:600;white-space:nowrap}
+.mx .mx-v{font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  color:var(--tundra);white-space:nowrap}
+@media print{
+  .mx-wrap{overflow:visible;break-inside:avoid}
+  .mx{min-width:0;font-size:10px}
+  .mx tr{break-inside:avoid}
+}
+
 /* ---------- 第九册 · 图鉴卡 ---------- */
 .spots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 0}
 @media (max-width:640px){.spots{grid-template-columns:1fr}}
