@@ -398,3 +398,110 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
   .spot{break-inside:avoid}
   .spots{grid-template-columns:1fr 1fr}
 }
+
+/* ---------- 第十册 · 地图（SVG 由 scripts/build_map.py 生成） ---------- */
+/* 图内颜色一律硬编码：与 .fig 同一套办法——夜读模式下底板保持浅色，
+   免得海岸线、路网和标注在深底上互相看不见。分类色由 SVG 内的
+   <style> 注入（来源是 places.py 的 KINDS），这里只管版式。 */
+.m-box{padding:16px 10px 12px;overflow:hidden}
+.m-svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.m-glac path{fill:#DCE8EB;stroke:none}
+.m-lake path{fill:#C7DCE2;stroke:none}
+.m-riv path{fill:none;stroke:#B2C9D0;stroke-width:.8}
+.m-coast path{fill:none;stroke:#8AA5AB;stroke-width:.9}
+.m-road path{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.m-pave path{stroke:#2F6E82;stroke-width:2.4}
+.m-grav path{stroke:#B8701C;stroke-width:2.6;stroke-dasharray:.5 5}
+.m-spur path{stroke:#22423B;stroke-width:1.7}
+.m-rail path{stroke:#4A3B6B;stroke-width:1.5;stroke-dasharray:7 4}
+
+.m-pin{cursor:pointer}
+.m-hit{fill:transparent}
+.m-dot{fill:var(--c,#13201E);stroke:#FAFCFC;stroke-width:1.2}
+.m-approx .m-dot{fill:#FAFCFC;stroke:var(--c,#13201E);stroke-width:1.8}
+.m-lab{font-family:var(--sans);font-size:10.5px;fill:#13201E;
+  paint-order:stroke;stroke:#FAFCFC;stroke-width:3;stroke-linejoin:round}
+.m-pin.dim{opacity:.13}
+.m-pin.sel .m-dot{stroke:#B8701C;stroke-width:2.6}
+.m-pin.sel .m-lab{font-weight:700}
+.m-pin:focus{outline:none}
+.m-pin:focus-visible .m-dot{stroke:#B8701C;stroke-width:2.6}
+
+/* 筛选条 */
+.m-filter{display:flex;flex-wrap:wrap;gap:5px;margin:18px 0 12px}
+.m-filter button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  padding:5px 10px;background:var(--paper);color:var(--muted);
+  border:1px solid var(--rule);cursor:pointer;line-height:1.4}
+.m-filter button:hover{color:var(--glacier)}
+.m-filter button.on{background:var(--tundra);border-color:var(--tundra);
+  color:#FAFCFC;font-weight:700}
+
+/* 图例 */
+.m-legend{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted);
+  margin-top:12px}
+.m-legend i{display:inline-block;vertical-align:middle;margin-right:6px}
+.m-lg-l i{width:20px;height:0;border-top-width:2.5px}
+.m-lg-l i.m-pave{border-top:2.5px solid #2F6E82}
+.m-lg-l i.m-grav{border-top:2.5px dotted #B8701C}
+.m-lg-l i.m-spur{border-top:2.5px solid #22423B}
+.m-lg-l i.m-rail{border-top:2.5px dashed #4A3B6B}
+.m-legend-a{margin-top:7px}
+.m-lg-a i{width:13px;height:9px;vertical-align:middle}
+.m-lg-a i.m-lg-glac{background:#DCE8EB}
+.m-lg-a i.m-lg-coast{height:0;border-top:2px solid #8AA5AB}
+.m-legend-k{margin-top:7px}
+.m-lg-k i{width:9px;height:9px;border-radius:50%;background:var(--c,#13201E)}
+
+/* 详情卡 */
+.m-card{margin-top:14px;background:var(--paper);border:1px solid var(--rule);
+  border-left:3px solid var(--tundra);padding:14px 16px}
+.m-card strong{font-family:var(--serif);font-size:17px}
+.m-c-k,.m-li-k{display:inline-block;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.1em;color:#FAFCFC;background:var(--c,#13201E);
+  padding:1px 6px;margin-right:8px;vertical-align:2px}
+.m-c-d{font-family:var(--mono);font-size:11px;color:var(--tundra);margin-left:10px}
+.m-card p{margin:8px 0 0;font-size:13.5px;line-height:1.7}
+.m-c-l a{font-family:var(--mono);font-size:11px;color:var(--glacier);
+  text-decoration:none;margin-right:16px}
+.m-appx{font-family:var(--mono);font-size:9.5px;color:var(--tundra);
+  border:1px solid var(--tundra);padding:0 4px;vertical-align:2px}
+
+/* 逐日清单 */
+.m-day{margin-top:26px}
+.m-day h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  color:var(--tundra);margin:0 0 10px;padding-bottom:6px;
+  border-bottom:1px solid var(--rule)}
+.m-day h3 span{float:right;color:var(--muted);letter-spacing:.06em}
+.m-list{list-style:none;margin:0;padding:0}
+.m-list li{display:flex;gap:2px;padding:9px 0;border-bottom:1px solid var(--rule);
+  cursor:pointer}
+.m-list li:hover{background:var(--paper)}
+.m-li-k{flex:none;margin-top:2px}
+.m-li-b{flex:1;min-width:0}
+.m-li-b strong{font-size:14.5px}
+.m-li-n{display:block;font-size:12.5px;color:var(--muted);line-height:1.65;margin-top:2px}
+.m-li-l{display:block;margin-top:5px}
+.m-li-l a{font-family:var(--mono);font-size:10.5px;color:var(--glacier);
+  text-decoration:none;margin-right:14px}
+.m-li-c{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.m-src{font-size:11.5px;line-height:1.7;color:var(--muted);margin:12px 0 0}
+
+/* 夜读：地图底板保持浅色（同 .fig） */
+html[data-theme="dark"] .m-box{background:#f4f7f7;border-color:#3a4a4c}
+
+@media print{
+  /* 纸上没有筛选：一律打全图、全清单 */
+  .m-filter{display:none !important}
+  .m-pin.dim{opacity:1}
+  .m-day[hidden]{display:block !important}
+  .m-card{display:none}
+  /* 图幅接近一整页，单独起一页正好占满；跨页切开的地图没法看 */
+  .m-box{break-before:page;break-inside:avoid;border:none;padding:0}
+  /* 逐日清单按条防断行——按「天」防断会让 D5 那种 11 条的整组另起一页，
+     前一页就空掉大半 */
+  .m-list li{break-inside:avoid}
+  .m-day h3{break-after:avoid}
+  .m-day{margin-top:18px}
+  html[data-theme="dark"] .m-box{background:var(--paper)}
+}
