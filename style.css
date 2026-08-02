@@ -405,6 +405,15 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
    <style> 注入（来源是 places.py 的 KINDS），这里只管版式。 */
 .m-box{padding:16px 10px 12px;overflow:hidden}
 .m-svg{display:block;width:100%;height:auto;touch-action:manipulation}
+/* 第十一册整幅图：桌面上放宽出正文栏；手机上不缩到一屏，横向滑动看原尺寸 */
+@media (min-width:920px){
+  #map-page .m-box{width:min(94vw,1160px);position:relative;left:50%;transform:translateX(-50%)}
+}
+.m-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.m-scroll .m-svg{min-width:660px}
+.m-hint{display:none;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  color:var(--muted);margin:0 0 8px;text-align:right}
+@media (max-width:720px){.m-hint{display:block}}
 .m-glac path{fill:#DCE8EB;stroke:none}
 .m-lake path{fill:#C7DCE2;stroke:none}
 .m-riv path{fill:none;stroke:#B2C9D0;stroke-width:.8}
@@ -419,9 +428,17 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
 .m-hit{fill:transparent}
 .m-dot{fill:var(--c,#13201E);stroke:#FAFCFC;stroke-width:1.2}
 .m-approx .m-dot{fill:#FAFCFC;stroke:var(--c,#13201E);stroke-width:1.8}
-.m-lab{font-family:var(--sans);font-size:10.5px;fill:#13201E;
+.m-lab{font-family:var(--sans);font-size:11px;fill:#13201E;
   paint-order:stroke;stroke:#FAFCFC;stroke-width:3;stroke-linejoin:round}
-.m-pin.dim{opacity:.13}
+.m-pin.dim{opacity:.08}
+/* 选中某一天：该天的点放大，底层标注整体让位给 .m-dlab 那一天的标注层 */
+#map-page.day-on .m-pin:not(.dim) .m-dot{r:6.2px;stroke-width:1.6}
+#map-page.day-on .m-pin:not(.dim).m-approx .m-dot{stroke-width:2.4}
+#map-page.day-on .m-pin .m-lab{display:none}
+.m-dlab{display:none;pointer-events:none}
+.m-dlab.on{display:inline}
+.m-dlab text{font-family:var(--sans);font-size:11.5px;font-weight:600;fill:#13201E;
+  paint-order:stroke;stroke:#FAFCFC;stroke-width:3.2;stroke-linejoin:round}
 .m-pin.sel .m-dot{stroke:#B8701C;stroke-width:2.6}
 .m-pin.sel .m-lab{font-weight:700}
 .m-pin:focus{outline:none}
@@ -430,8 +447,10 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
 /* 筛选条 */
 .m-filter{display:flex;flex-wrap:wrap;gap:5px;margin:18px 0 12px}
 .m-filter button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
-  padding:5px 10px;background:var(--paper);color:var(--muted);
+  padding:5px 11px;background:var(--paper);color:var(--muted);
   border:1px solid var(--rule);cursor:pointer;line-height:1.4}
+.m-filter button span{display:block;font-size:9px;letter-spacing:.05em;
+  opacity:.75;margin-top:1px}
 .m-filter button:hover{color:var(--glacier)}
 .m-filter button.on{background:var(--tundra);border-color:var(--tundra);
   color:#FAFCFC;font-weight:700}
@@ -453,9 +472,16 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
 .m-legend-k{margin-top:7px}
 .m-lg-k i{width:9px;height:9px;border-radius:50%;background:var(--c,#13201E)}
 
-/* 详情卡 */
-.m-card{margin-top:14px;background:var(--paper);border:1px solid var(--rule);
-  border-left:3px solid var(--tundra);padding:14px 16px}
+/* 详情卡：固定在视口底部 —— 图有一整屏高，卡片跟在图后面的话，
+   点上半幅的点根本看不见反馈；从下面清单点某一条也一样 */
+.m-card{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:30;
+  width:min(720px,calc(100vw - 28px));box-sizing:border-box;max-height:42vh;overflow-y:auto;
+  background:var(--paper);border:1px solid var(--rule);
+  border-left:3px solid var(--tundra);padding:14px 44px 14px 16px;
+  box-shadow:0 6px 24px rgba(7,16,34,.18)}
+.m-c-x{position:absolute;top:6px;right:8px;border:0;background:none;cursor:pointer;
+  font-size:20px;line-height:1;color:var(--muted);padding:4px}
+.m-c-x:hover{color:var(--ink)}
 .m-card strong{font-family:var(--serif);font-size:17px}
 .m-c-k,.m-li-k{display:inline-block;font-family:var(--mono);font-size:9.5px;
   letter-spacing:.1em;color:#FAFCFC;background:var(--c,#13201E);
@@ -498,6 +524,11 @@ html[data-theme="dark"] .m-box{background:#f4f7f7;border-color:#3a4a4c}
   .m-card{display:none}
   /* 图幅接近一整页，单独起一页正好占满；跨页切开的地图没法看 */
   .m-box{break-before:page;break-inside:avoid;border:none;padding:0}
+  /* 屏幕上的放宽和横向滑动都不进纸面 */
+  #map-page .m-box{width:auto;left:auto;transform:none}
+  .m-scroll{overflow:visible}
+  .m-scroll .m-svg{min-width:0}
+  .m-hint{display:none}
   /* 逐日清单按条防断行——按「天」防断会让 D5 那种 11 条的整组另起一页，
      前一页就空掉大半 */
   .m-list li{break-inside:avoid}
