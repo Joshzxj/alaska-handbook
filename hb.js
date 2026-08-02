@@ -65,8 +65,12 @@
       btn.type = "button";
       btn.className = "hb-theme";
       btn.setAttribute("aria-label", "夜读模式");
+      var themeMeta = document.querySelector('meta[name="theme-color"]');
       var paint = function () {
-        btn.textContent = root.dataset.theme === "dark" ? "☀" : "☾";
+        var dark = root.dataset.theme === "dark";
+        btn.textContent = dark ? "☀" : "☾";
+        /* 浏览器工具条跟着正文底色走，别停在密码页的夜空色上 */
+        if (themeMeta) themeMeta.setAttribute("content", dark ? "#121b1e" : "#FAFCFC");
       };
       btn.addEventListener("click", function () {
         if (root.dataset.theme === "dark") {
@@ -80,6 +84,15 @@
       });
       paint();
       navIn.appendChild(btn);
+
+      /* 当前册滚进视野中央：导航单行，窄屏时超出部分横向滚动 */
+      var cur = navIn.querySelector("a.on");
+      if (cur) {
+        cur.setAttribute("aria-current", "page");
+        if (navIn.scrollWidth > navIn.clientWidth) {
+          navIn.scrollLeft = cur.offsetLeft - (navIn.clientWidth - cur.offsetWidth) / 2;
+        }
+      }
     }
 
     /* ---------- c. 本册目录 ---------- */
