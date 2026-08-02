@@ -148,6 +148,22 @@
       bn.appendChild(mk(idx < ORDER.length - 1 ? ORDER[idx + 1] : null, false));
       footer.insertAdjacentElement("afterend", bn);
     }
+
+    /* ---------- f. 地点反链：正文锚点（.loc[id]）→ 第十一册地图同一个点
+       id 与 scripts/places.py 的 key 一一对应；map.html 收到 #key 会选中该点。 */
+    var locs = document.querySelectorAll(".loc[id]");
+    Array.prototype.forEach.call(locs, function (el) {
+      var host = el;
+      if (el.matches(".sched > div")) host = el.querySelector("span:last-of-type") || el;
+      else if (el.matches("ul.check > li")) host = el.querySelector("span") || el;
+      else if (el.querySelector("h3")) host = el.querySelector("h3");
+      var a = document.createElement("a");
+      a.className = "hb-loc";
+      a.href = "map.html#" + el.id;
+      a.textContent = "地图";
+      a.setAttribute("aria-label", "在第十一册地图上看这个点");
+      host.appendChild(a);
+    });
   }
 
   if (document.readyState === "loading") {
