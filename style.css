@@ -342,3 +342,41 @@ html[data-theme="dark"] .fig figcaption .cr{color:#5E6E6C}
   p{orphans:3;widows:3}
 
 }
+
+/* ---------- 折叠来源 ---------- */
+.src{margin:8px 0 0}
+.src summary{cursor:pointer;list-style:none;display:inline-block;font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--rule);border-radius:9px;padding:2px 9px;opacity:.85;
+  -webkit-tap-highlight-color:transparent}
+.src summary::-webkit-details-marker{display:none}
+.src summary::after{content:" +"}
+.src[open] summary::after{content:" −"}
+.src p{font-family:var(--mono);font-size:10.5px;line-height:1.8;color:var(--muted);
+  margin:8px 0 0;word-break:break-all}
+@media print{.src{display:none}}
+
+/* ---------- 第九册 · 图鉴卡 ---------- */
+.spots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 0}
+@media (max-width:640px){.spots{grid-template-columns:1fr}}
+.spot{position:relative;display:grid;grid-template-columns:96px 1fr;gap:12px;
+  background:var(--paper);border:1px solid var(--rule);padding:10px 34px 10px 10px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.spot img{width:96px;height:96px;object-fit:cover;display:block}
+.spot-tx strong{display:block;font-size:13.5px;line-height:1.45}
+.spot-tx em{display:block;font-family:var(--mono);font-size:9.5px;font-style:italic;
+  color:var(--muted);margin:1px 0 5px}
+.spot-tx p{margin:0;font-size:12px;line-height:1.62;color:var(--ink)}
+.spot-tx small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;
+  color:var(--glacier);margin-top:6px}
+.spot-mk{position:absolute;top:9px;right:9px;width:17px;height:17px;
+  border:1.5px solid var(--spruce);border-radius:3px;background:var(--paper)}
+.spot.hb-done{border-color:var(--spruce)}
+.spot.hb-done .spot-mk{background:var(--spruce)}
+.spot.hb-done .spot-mk::after{content:"\2713";position:absolute;inset:0;color:#fff;
+  font-size:12px;line-height:17px;text-align:center;font-family:var(--mono)}
+html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
+@media print{
+  .spot{break-inside:avoid}
+  .spots{grid-template-columns:1fr 1fr}
+}

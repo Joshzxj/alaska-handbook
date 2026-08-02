@@ -19,7 +19,9 @@
     ["backup.html", "4 · 备用方案"],
     ["aurora.html", "5 · 极光"],
     ["budget.html", "6 · 预算"],
-    ["knowledge.html", "7 · 背景读物"]
+    ["knowledge.html", "7 · 自然读物"],
+    ["culture.html", "8 · 人文读物"],
+    ["fieldguide.html", "9 · 野外图鉴"]
   ];
 
   function pageName() {
@@ -39,10 +41,10 @@
     var root = document.documentElement;
 
     /* ---------- a. 清单打勾 ---------- */
-    var lists = document.querySelectorAll("ul.todo, ul.check");
+    var lists = document.querySelectorAll("ul.todo, ul.check, .spots");
     Array.prototype.forEach.call(lists, function (ul, listIdx) {
       Array.prototype.forEach.call(ul.children, function (li, liIdx) {
-        if (li.tagName !== "LI") return;
+        if (li.tagName !== "LI" && !(li.classList && li.classList.contains("spot"))) return;
         var key = "hb:" + page + ":" + listIdx + ":" + liIdx + ":" +
                   hash8(li.textContent.trim());
         if (lsGet(key) === "1") li.classList.add("hb-done");
