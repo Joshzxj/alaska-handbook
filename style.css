@@ -492,6 +492,15 @@ html[data-theme="dark"] .spot.hb-done .spot-mk::after{color:#0c1416}
   text-decoration:none;margin-right:16px}
 .m-appx{font-family:var(--mono);font-size:9.5px;color:var(--tundra);
   border:1px solid var(--tundra);padding:0 4px;vertical-align:2px}
+/* 卡片上按行程顺序前后翻（← → 键也行）；序号跟着当前筛选走 */
+.m-c-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:12px 0 0;padding-top:10px;border-top:1px solid var(--rule)}
+.m-c-nav button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  padding:4px 10px;background:var(--paper);color:var(--glacier);
+  border:1px solid var(--rule);cursor:pointer;line-height:1.4}
+.m-c-nav button:hover{color:var(--tundra)}
+.m-c-nav button[disabled]{opacity:.35;cursor:default}
+.m-c-pos{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
 
 /* 逐日清单 */
 .m-day{margin-top:26px}
