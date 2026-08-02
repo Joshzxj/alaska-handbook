@@ -228,3 +228,117 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);
   a{color:inherit;text-decoration:none}
   .sub,.lede{max-width:none}
 }
+
+/* ---------- hb.js 交互层 ---------- */
+/* 清单打勾 */
+.todo li,.check li{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.todo li.hb-done{color:var(--muted)}
+.todo li.hb-done::before{content:"✓";background:var(--spruce);color:#fff;
+  font-size:9px;line-height:9px;font-family:var(--mono);text-align:center}
+.check li.hb-done{opacity:.75}
+.check li.hb-done strong{text-decoration:line-through;text-decoration-color:var(--rule)}
+
+/* 夜读模式开关（导航条内） */
+.hb-theme{margin-left:auto;border:0;background:none;padding:0 2px;cursor:pointer;
+  font-family:var(--mono);font-size:14px;line-height:1;color:var(--muted)}
+.hb-theme:hover{color:var(--glacier)}
+
+/* 本册目录 */
+.hb-toc{margin:0 0 10px;background:var(--paper);border:1px solid var(--rule)}
+.hb-toc summary{cursor:pointer;padding:11px 16px;list-style:none;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--tundra);font-weight:600;
+  -webkit-tap-highlight-color:transparent}
+.hb-toc summary::-webkit-details-marker{display:none}
+.hb-toc summary::after{content:" +";color:var(--muted)}
+.hb-toc[open] summary::after{content:" −"}
+.hb-toc nav{padding:2px 16px 12px;border-top:1px solid var(--rule)}
+.hb-toc nav a{display:block;padding:8px 0;border-bottom:1px dashed var(--rule);
+  color:inherit;text-decoration:none;font-size:13.5px;line-height:1.6}
+.hb-toc nav a:last-child{border-bottom:none}
+.hb-toc nav a:hover{color:var(--glacier)}
+.wrap h2,.wrap h3{scroll-margin-top:58px}
+
+/* 回到顶部 */
+.hb-top{position:fixed;right:18px;bottom:18px;z-index:20;width:40px;height:40px;
+  border-radius:50%;border:1px solid var(--rule);background:var(--paper);
+  color:var(--spruce);font-size:16px;line-height:1;cursor:pointer;
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.hb-top.show{opacity:1;pointer-events:auto}
+
+/* 册间导航 */
+.hb-booknav{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+  margin-top:28px;padding-top:16px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
+.hb-booknav a{color:var(--muted);text-decoration:none}
+.hb-booknav a:hover{color:var(--glacier)}
+
+/* ---------- 夜读模式 ---------- */
+html[data-theme="dark"]{
+  --ice:#0c1416;--paper:#121b1e;--ink:#d8e4e1;--spruce:#7fc4ae;
+  --glacier:#6db3c7;--tundra:#d99a4e;--muted:#8fa19e;--rule:#27383a}
+html[data-theme="dark"] img{filter:brightness(.82)}
+/* 封面主题块：内部文字为硬编码浅色，背景固定回深云杉绿 */
+html[data-theme="dark"] .thesis{background:#22423B}
+/* 徽章：--spruce 变浅后，字从浅改深 */
+html[data-theme="dark"] .badge{color:#0c1416}
+/* 打勾框：薄荷绿底上白勾对比不足，改深字 */
+html[data-theme="dark"] .todo li.hb-done::before{color:#0c1416}
+/* 高亮日冷知识框：原为硬编码浅底 */
+html[data-theme="dark"] .day.hi .fact{background:#182428}
+/* 图片/示意图底板保持浅色：内嵌 SVG 的硬编码深色文字才可读 */
+html[data-theme="dark"] .fig{background:#f4f7f7}
+html[data-theme="dark"] .fig figcaption,
+html[data-theme="dark"] .fig figcaption .cr{color:#5E6E6C}
+
+/* ---------- 打印安全：强制回浅色 ---------- */
+@media print{
+  html[data-theme="dark"]{
+    --ice:#E7EDEF;--paper:#FAFCFC;--ink:#13201E;--spruce:#22423B;
+    --glacier:#2F6E82;--tundra:#B8701C;--muted:#5E6E6C;--rule:#C9D5D7}
+  html[data-theme="dark"] img{filter:none}
+  html[data-theme="dark"] .day.hi .fact{background:#F1F6F5}
+  html[data-theme="dark"] .fig{background:var(--paper)}
+  html[data-theme="dark"] .fig figcaption,
+  html[data-theme="dark"] .fig figcaption .cr{color:var(--muted)}
+  html[data-theme="dark"] .badge{color:#EAF1F0}
+  html[data-theme="dark"] .todo li.hb-done::before{color:#fff}
+  .hb-theme,.hb-top,.hb-toc,.hb-booknav{display:none !important}
+}
+
+/* ---------- 打印补充（分页与断裂控制） ---------- */
+@media print{
+
+  /* 图片与示意图：整个 figure 不跨页，图注永远跟着图。
+     竖幅照片限高 150mm——加上图注与内边距后仍能装进
+     Letter（内高约 251mm）和 A4（约 269mm）的一页，
+     否则 avoid 无法满足会被浏览器忽略、图被拦腰截断 */
+  .fig,.fig-row{break-inside:avoid}
+  .fig img{width:auto;max-width:100%;max-height:150mm;margin:0 auto}
+
+  /* 标题不悬在页尾：章标题、卡片小标题、清单小标签、逐日标题行
+     都与后文保持同页（巨型 .day/.card 超过一页时内部仍会拆分，
+     这些规则保证拆分点不落在标题之后） */
+  h2,h3,.tag,.todo-h,.d-title,.d-meta{break-after:avoid}
+
+  /* 行内不截断：时刻表行（grid div，非 tr）、预算/通讯录表行、
+     待办与住宿清单条目、左侧竖线提示块 */
+  .sched > div,.bk{break-inside:avoid}
+  .bud tr,.check li,.todo li,.nights li{break-inside:avoid}
+  .bud .bud-cat{break-after:avoid}   /* 分类行不孤悬页尾 */
+  .bud .bud-tot{break-before:avoid}  /* 合计行不孤悬页首 */
+
+  /* 封面目录：整块一页，条目内部（标题+描述）不拆 */
+  .toc{break-inside:avoid}
+  .toc li{break-inside:avoid}
+
+  /* 单文件版：一册内的第二个及以后章节另起一页
+     （第七册六章各占整页；整册换页规则勿在此重复） */
+  .book-vol section + section{break-before:page}
+
+  /* 屏幕交互组件（hb- 前缀类）打印一律隐藏 */
+
+  /* 段落孤行控制：背景读物的长段落尤其受益 */
+  p{orphans:3;widows:3}
+
+}
