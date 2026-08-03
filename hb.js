@@ -23,7 +23,9 @@
     ["culture.html", "8 · 人文读物"],
     ["fieldguide.html", "9 · 野外图鉴"],
     ["parks.html", "10 · 公园与城市"],
-    ["map.html", "11 · 地图"]
+    ["map.html", "11 · 地图"],
+    ["sandbox3d.html", "12 · 沙盘"],
+    ["skylab.html", "13 · 天空"]
   ];
 
   function pageName() {
